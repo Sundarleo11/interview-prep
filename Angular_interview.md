@@ -16,7 +16,7 @@
 
 ### 6. How does Angular Application Bootstrap?
 
-### 7. What is APP\_INITIALIZER?
+### 7. What is APP INITIALIZER?
 
 ### 8. How to load components dynamically?
 
@@ -84,7 +84,7 @@
 
 ### 40. Difference between Attribute and Structural Directive
 
-### 41. Angular Security Best Practices
+
 
 
 ---
@@ -461,3 +461,74 @@ Load feature modules on demand using `loadChildren` in routes.
 
 * Attribute: Changes appearance/behavior (`ngClass`).
 * Structural: Changes DOM structure (`*ngIf`, `*ngFor`).
+
+### 42.Key Differences Between Observable and Promise
+
+| Feature              | **Observable**                          | **Promise**                      |
+| -------------------- | --------------------------------------- | -------------------------------- |
+| **Values**           | Can emit **multiple values over time**  | Emits **only one value**         |
+| **Execution**        | **Lazy** (executes when subscribed)     | **Eager** (executes immediately) |
+| **Cancelation**      | Possible via `unsubscribe()`            | Not possible after started       |
+| **Operators**        | Has RxJS operators like `map`, `filter` | No such operators                |
+| **Push vs Pull**     | Push-based, supports streaming          | Push-based but only one emission |
+| **Built-in Support** | Part of RxJS (used in Angular)          | Native JavaScript feature        |
+
+---
+
+
+### Subject & Types of Subject
+
+Subject: Both an Observable and Observer. Multicasts values.
+
+Types:
+
+Subject → Normal.
+
+BehaviorSubject → Requires initial value, emits last value to new subscribers.
+
+ReplaySubject → Replays old values to new subscribers.
+
+AsyncSubject → Emits only last value after completion. 
+
+
+### 44. Subject vs behaviorSubject
+
+A Subject is both an Observable and an Observer.
+
+It allows values to be multicast to multiple subscribers.
+
+Subscribers only receive values emitted after subscription.
+
+```
+import { Subject } from 'rxjs';
+
+const subject = new Subject<number>();
+subject.subscribe(val => console.log('Subscriber 1:', val));
+subject.next(10); // Subscriber 1: 10
+subject.next(20); // Subscriber 1: 20
+
+```
+
+BehaviorSubject (RxJS)
+
+A BehaviorSubject is a special type of Subject that:
+
+Requires an initial value.
+
+Always emits the latest value to new subscribers immediately upon subscription.
+
+```import { BehaviorSubject } from 'rxjs';
+
+const behaviorSubject = new BehaviorSubject<number>(0);
+behaviorSubject.subscribe(val => console.log('Subscriber 1:', val)); // 0
+behaviorSubject.next(5); // Subscriber 1: 5
+behaviorSubject.subscribe(val => console.log('Subscriber 2:', val)); // 5
+```
+
+| Feature                 | **Subject**                              | **BehaviorSubject**                                       |
+| ----------------------- | ---------------------------------------- | --------------------------------------------------------- |
+| **Initial Value**       | ❌ No initial value required              | ✅ Requires an initial value                               |
+| **Last Emitted Value**  | ❌ Does **not** store last value          | ✅ Stores and emits last value to new subscribers          |
+| **On New Subscription** | Subscriber gets **nothing until next()** | Subscriber immediately gets **current/latest value**      |
+| **Use Case**            | When **no need to keep previous value**  | When **always want subscribers to have the latest value** |
+
