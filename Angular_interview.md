@@ -465,3 +465,41 @@ Create a shared service that encapsulates a Subject. Components can subscribe to
 
 ---
 
+## Additional Angular Questions
+
+### Pure Pipe vs Impure Pipe vs Async Pipe
+**Answer:**
+A **pure pipe** is only re-evaluated when its input reference changes, while an **impure pipe** is re-executed on every change detection cycle. The **async pipe** is a pure pipe that subscribes to an Observable or Promise and automatically unsubscribes when the component is destroyed.
+
+---
+
+### Interceptor in Angular
+**Answer:**
+An **HTTP Interceptor** intercepts and modifies HTTP requests and responses. Common use cases include adding authentication tokens, logging, or error handling. Multiple interceptors can be provided in a single project; they are executed in the order they are provided. Configuration is done in the provider's array using the `HTTP_INTERCEPTORS` token with `multi: true`.
+
+---
+
+### What are Entry Components in Angular?
+**Answer:**
+**Entry components** are the components that are not referenced in any template but are loaded dynamically. With Angular Ivy, declaring entry components is no longer necessary.
+
+---
+
+### onChange vs DoCheck
+**Answer:**
+`ngOnChanges` is triggered when data-bound input properties change, while `ngDoCheck` is a custom change detection hook invoked during every change detection cycle, allowing custom checks for changes.
+
+---
+
+### What is the use of @Injectable?
+**Answer:**
+The `@Injectable` decorator marks a class as available to be provided and injected as a dependency. It enables Angular's dependency injection system to supply required services to components or other services.
+
+---
+
+### Common Problems with async Pipe
+**Answer:**
+While the async pipe simplifies subscriptions, common issues include unexpected frequent re-evaluations in impure contexts, and potential performance impacts if used with high-frequency data streams. It’s important to ensure that Observables are managed properly.
+
+---
+
