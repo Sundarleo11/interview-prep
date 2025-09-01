@@ -2,6 +2,45 @@
 
 ## Index
 
+### Java Comparisons
+1. [StringBuffer vs StringBuilder](#stringbuffer-vs-stringbuilder)
+2. [Abstract Class vs Interface](#abstract-class-vs-interface)
+3. [SOLID Principles](#solid-principles)
+4. [Collection vs Collections](#collection-vs-collections)
+5. [Array vs List](#array-vs-list)
+6. [ArrayList vs LinkedList](#arraylist-vs-linkedlist)
+7. [HashMap vs LinkedHashMap](#hashmap-vs-linkedhashmap)
+8. [HashMap vs ConcurrentHashMap](#hashmap-vs-concurrenthashmap)
+9. [Set vs HashSet](#set-vs-hashset)
+10. [Set Types](#set-types)
+11. [Stream Operations: Intermediate vs Terminal](#stream-operations-intermediate-vs-terminal)
+12. [map() vs flatMap()](#map-vs-flatmap)
+13. [stream() vs parallelStream()](#stream-vs-parallelstream)
+14. [Comparable vs Comparator](#comparable-vs-comparator)
+15. [ArrayList vs Vector](#arraylist-vs-vector)
+16. [Promise vs Observable](#promise-vs-observable)
+17. [HashSet vs TreeSet vs LinkedHashSet](#hashset-vs-treeset-vs-linkedhashset)
+18. [List vs Set vs Map](#list-vs-set-vs-map)
+19. [Iterator vs ListIterator](#iterator-vs-listiterator)
+
+### Spring Annotations Comparisons
+20. [@Controller vs @RestController](#controller-vs-restcontroller)
+21. [@Component vs @Configuration](#component-vs-configuration)
+22. [@Configuration vs @EnableAutoConfiguration](#configuration-vs-enableautoconfiguration)
+23. [@Service vs @Component vs @Repository](#service-vs-component-vs-repository)
+24. [@Autowired vs @Inject vs @Resource](#autowired-vs-inject-vs-resource)
+
+### Angular Comparisons
+25. [Pure Pipe vs Impure Pipe vs Async Pipe](#pure-pipe-vs-impure-pipe-vs-async-pipe)
+26. [Promise vs Observable (Angular)](#promise-vs-observable-angular)
+27. [Interceptor in Angular](#interceptor-in-angular)
+28. [Entry Component vs Regular Component](#entry-component-vs-regular-component)
+29. [ngOnChanges vs ngDoCheck](#ngonchanges-vs-ngdocheck)
+30. [View Encapsulation Types](#view-encapsulation-types)
+31. [Attribute Directive vs Structural Directive](#attribute-directive-vs-structural-directive)
+32. [Reactive Form vs Template-driven Form](#reactive-form-vs-template-driven-form)
+33. [forRoot vs forChild (Angular Routing)](#forroot-vs-forchild-angular-routing)
+34. [Guard Types in Angular](#guard-types-in-angular)
 
 ---
 
@@ -173,11 +212,47 @@ This repository contains comparative study tables for various concepts in Java, 
 
 | Feature          | Comparable            | Comparator                      |
 | ---------------- | --------------------- | ------------------------------- |
-| **Package**      | `java.lang`           | `java.util`                     |
-| **Method**       | `compareTo(Object o)` | `compare(Object o1, Object o2)` |
-| **Sorting**      | Natural order         | Custom order                    |
-| **Location**     | Inside the class      | Outside the class (separate)    |
-| **Number of logics** | Only one              | Multiple possible               |
+| Package          | `java.lang`           | `java.util`                     |
+| Method           | `compareTo(Object o)` | `compare(Object o1, Object o2)` |
+| Sorting          | Natural order         | Custom order                    |
+| Location         | Inside the class      | Outside the class (separate)    |
+| Number of logics | Only one              | Multiple possible               |
+
+---
+
+### @Controller vs @RestController
+
+| Feature  | `@Controller`                                                                                            | `@RestController`                                                                                                |
+| -------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Purpose  | Used in **Spring MVC** (returns **views/pages**)                                                         | Used in **REST APIs** (returns **JSON/XML**)                                                                     |
+| Behavior | Returns a **view name** (resolved by ViewResolver like JSP/Thymeleaf)                                    | Combines `@Controller` + `@ResponseBody` → directly returns data                                                 |
+| Example  | `java @Controller class MyController { @GetMapping("/home") public String home() { return "index"; } } ` | `java @RestController class MyRestController { @GetMapping("/home") public String home() { return "Hello"; } } ` |
+
+---
+
+### @Component vs @Configuration
+
+| Feature          | `@Component`                                                                         | `@Configuration`                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Purpose          | Marks a class as a Spring bean (generic stereotype)                                  | Marks a class as a **source of bean definitions**                                                         |
+| How it works     | The class itself is registered as a bean                                             | The class can **define multiple beans** using `@Bean` methods                                             |
+| Bean creation    | Registers **one bean (the class itself)**                                            | Can register **multiple beans**                                                                           |
+| Proxy behavior   | No proxying, just a simple bean                                                      | Uses **CGLIB proxies** so that `@Bean` methods return **singleton beans** (even if called multiple times) |
+| Example          | `java @Component class MyService {} `                                                | `java @Configuration class AppConfig { @Bean DataSource dataSource() { return new DataSource(); } } `     |
+| Typical use case | When you want Spring to auto-detect and manage a class (service, DAO, utility, etc.) | When you want to define **manual bean configuration** (similar to old `XML` config)                       |
+
+---
+
+### @Configuration vs @EnableAutoConfiguration
+
+| Feature            | `@Configuration`                                                                                      | `@EnableAutoConfiguration`                                                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Belongs to         | **Core Spring**                                                                                       | **Spring Boot**                                                                            |
+| Purpose            | Marks a class as a **Java config class** (can declare `@Bean` methods)                                | Tells Spring Boot to **auto-configure beans** based on classpath dependencies & properties |
+| Who creates beans? | You define beans manually with `@Bean`                                                                | Spring Boot scans the classpath & loads default beans automatically                        |
+| Scope              | Limited to beans you define in that config class                                                      | Global — tries to configure the whole app automatically                                    |
+| Example            | `java @Configuration class AppConfig { @Bean DataSource dataSource() { return new DataSource(); } } ` | `java @EnableAutoConfiguration @Configuration class MyApp {} `                             |
+| Typical use case   | Manual bean creation (custom logic, external library beans)                                           | Bootstrapping a Spring Boot app without needing XML/Java configs                           |
 
 ---
 
@@ -198,51 +273,217 @@ This repository contains comparative study tables for various concepts in Java, 
 
 | Feature     | Promise            | Observable                      |
 | ----------- | ------------------ | ------------------------------- |
-| **Values**      | Single async value | Multiple values (sync or async) |
-| **Execution**   | Always async       | Can be sync or async            |
-| **Laziness**    | Eager              | Lazy (starts on subscription)   |
-| **Cancelation** | Cannot cancel      | Can unsubscribe                 |
+| Values      | Single async value | Multiple values (sync or async) |
+| Execution   | Always async       | Can be sync or async            |
+| Laziness    | Eager              | Lazy (starts on subscription)   |
+| Cancelation | Cannot cancel      | Can unsubscribe                 |
 
 ---
 
-## Spring Annotations Comparisons
+### HashSet vs TreeSet vs LinkedHashSet
 
-### @Controller vs @RestController
-
-| Feature         | `@Controller`                                                                                            | `@RestController`                                                                                                |
-| --------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| **Purpose**     | Used in **Spring MVC** (returns **views/pages**)                                                         | Used in **REST APIs** (returns **JSON/XML**)                                                                     |
-| **Behavior**    | Returns a **view name** (resolved by ViewResolver like JSP/Thymeleaf)                                    | Combines `@Controller` + `@ResponseBody` → directly returns data                                                 |
-| **Example**     | `@Controller\nclass MyController {\n  @GetMapping("/home")\n  public String home() { return "index"; }\n}` | `@RestController\nclass MyRestController {\n  @GetMapping("/home")\n  public String home() { return "Hello"; }\n}` |
-
----
-
-### @Component vs @Configuration
-
-| Feature          | `@Component`                                                                         | `@Configuration`                                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| **Purpose**      | Marks a class as a Spring bean (generic stereotype)                                  | Marks a class as a **source of bean definitions**                                                         |
-| **How it works** | The class itself is registered as a bean                                             | The class can **define multiple beans** using `@Bean` methods                                             |
-| **Bean creation**| Registers **one bean (the class itself)**                                            | Can register **multiple beans**                                                                           |
-| **Proxy behavior**| No proxying, just a simple bean                                                      | Uses **CGLIB proxies** so that `@Bean` methods return **singleton beans** (even if called multiple times) |
-| **Example**      | `@Component\nclass MyService {}`                                                     | `@Configuration\nclass AppConfig {\n  @Bean\n  public DataSource dataSource() { return new DataSource(); }\n}` |
-| **Typical use case**| When you want Spring to auto-detect and manage a class (service, DAO, utility, etc.) | When you want to define **manual bean configuration** (similar to old XML config)                       |
+| Feature           | HashSet                | TreeSet                | LinkedHashSet           |
+| ----------------- | ---------------------- | ---------------------- | ----------------------- |
+| **Order**         | Unordered              | Sorted (natural order) | Insertion order         |
+| **Nulls**         | One null allowed       | No null allowed        | One null allowed        |
+| **Performance**   | Fast (O(1) ops)        | Slower (O(log n) ops)  | Fast (O(1) ops)         |
+| **Implementation**| Hash table             | Red-Black tree         | Hash table + linked list|
+| **Use case**      | Fast, unordered set    | Sorted set             | Fast, ordered set       |
 
 ---
 
-### @Configuration vs @EnableAutoConfiguration
+### List vs Set vs Map
 
-| Feature            | `@Configuration`                                                                                      | `@EnableAutoConfiguration`                                                                 |
-| ------------------ | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| **Belongs to**     | **Core Spring**                                                                                       | **Spring Boot**                                                                            |
-| **Purpose**        | Marks a class as a **Java config class** (can declare `@Bean` methods)                                | Tells Spring Boot to **auto-configure beans** based on classpath dependencies & properties |
-| **Who creates beans?** | You define beans manually with `@Bean`                                                                | Spring Boot scans the classpath & loads default beans automatically                        |
-| **Scope**          | Limited to beans you define in that config class                                                      | Global — tries to configure the whole app automatically                                    |
-| **Example**        | `@Configuration\nclass AppConfig {\n  @Bean\n  public DataSource dataSource() { return new DataSource(); }\n}` | `@EnableAutoConfiguration\n@Configuration\nclass MyApp {}`                             |
-| **Typical use case** | Manual bean creation (custom logic, external library beans)                                           | Bootstrapping a Spring Boot app without needing XML/Java configs                           |
+| Feature           | List                   | Set                    | Map                    |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| **Duplicates**    | Allowed                | Not allowed            | Keys not allowed       |
+| **Order**         | Maintains order        | Depends on implementation| Depends on implementation|
+| **Access**        | By index               | By value               | By key                 |
+| **Nulls**         | Allowed                | Allowed (depends)      | Keys/values allowed    |
+| **Use case**      | Ordered collection     | Unique collection      | Key-value pairs        |
+
+---
+
+### Iterator vs ListIterator
+
+| Feature           | Iterator               | ListIterator           |
+| ----------------- | ---------------------- | ---------------------- |
+| **Direction**     | Forward only           | Forward & backward     |
+| **Add/Set**       | No                     | Yes                    |
+| **Index access**  | No                     | Yes                    |
+| **Applicable to** | All collections        | Only lists             |
+
+---
+
+## JavaScript Important Comparisons
+
+### var vs let vs const
+| Feature           | var                    | let                    | const                  |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| **Scope**         | Function               | Block                  | Block                  |
+| **Hoisting**      | Yes                    | No (TDZ)               | No (TDZ)               |
+| **Reassign**      | Yes                    | Yes                    | No                     |
+| **Redeclare**     | Yes                    | No                     | No                     |
+
+---
+
+### == vs === (Abstract vs Strict Equality)
+| Feature           | == (Abstract Equality) | === (Strict Equality)  |
+| ----------------- | ---------------------- | ---------------------- |
+| **Type coercion** | Yes                    | No                     |
+| **Compares**      | Value                  | Value & type           |
+| **Use case**      | Loose comparison       | Exact comparison       |
+
+---
+
+### Shallow Copy vs Deep Copy
+| Feature           | Shallow Copy           | Deep Copy              |
+| ----------------- | ---------------------- | ---------------------- |
+| **Copies**        | Top-level only         | All nested levels      |
+| **Methods**       | Object.assign, spread  | JSON.parse/stringify, recursion |
+| **References**    | Shared for nested      | New for all            |
+
+---
+
+### for vs for...in vs for...of
+| Feature           | for                    | for...in               | for...of               |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| **Iterates**      | Indexes (arrays)       | Keys (objects/arrays)  | Values (iterables)     |
+| **Use case**      | Arrays                 | Objects, arrays        | Arrays, strings, maps  |
+
+---
+
+### Function Declaration vs Function Expression vs Arrow Function
+| Feature           | Declaration            | Expression             | Arrow Function         |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| **Hoisting**      | Yes                    | No                     | No                     |
+| **this binding**  | Dynamic                | Dynamic                | Lexical                |
+| **Arguments obj** | Yes                    | Yes                    | No                     |
+| **Syntax**        | function foo(){}       | var foo = function(){} | var foo = () => {}     |
+
+---
+
+### Shallow Copy vs Deep Copy
+| Feature           | Shallow Copy           | Deep Copy              |
+| ----------------- | ---------------------- | ---------------------- |
+| **Copies**        | Top-level only         | All nested levels      |
+| **Methods**       | Object.assign, spread  | JSON.parse/stringify, recursion |
+| **References**    | Shared for nested      | New for all            |
+
+---
+
+### @Service vs @Component vs @Repository (Spring)
+| Feature           | @Service               | @Component             | @Repository            |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| **Purpose**       | Business logic         | Generic bean           | Data access            |
+| **Specialization**| Yes                    | No                     | Yes                    |
+| **Exception translation**| No              | No                     | Yes                    |
+
+---
+
+### @Autowired vs @Inject vs @Resource (Spring)
+| Feature           | @Autowired             | @Inject                | @Resource              |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| **Standard**      | Spring                 | JSR-330 (Java EE)      | JSR-250 (Java EE)      |
+| **By type**       | Yes                    | Yes                    | No (by name)           |
+| **By name**       | No                     | No                     | Yes                    |
+| **Required attr** | Yes                    | No                     | No                     |
 
 ---
 
 ## End of Comparisons
 
 This guide aggregates comparison tables for Java, Spring, and JavaScript concepts for quick reference and study.
+
+---
+
+## Angular Comparisons
+
+### Pure Pipe vs Impure Pipe vs Async Pipe
+| Feature           | Pure Pipe               | Impure Pipe             | Async Pipe              |
+| ----------------- | ---------------------- | ----------------------- | ----------------------- |
+| **Re-evaluation** | Only when input changes| Every change detection  | Subscribes to Observable|
+| **Performance**   | High                   | Lower                   | Depends on stream       |
+| **Use case**      | Static/rarely changing | Dynamic/frequently changing | Async data streams  |
+
+---
+
+### Promise vs Observable (Angular)
+| Feature           | Promise                 | Observable              |
+| ----------------- | ---------------------- | ----------------------- |
+| **Values**        | Single value            | Multiple values         |
+| **Cancelation**   | Not possible            | Possible (unsubscribe)  |
+| **Operators**     | None                    | RxJS operators          |
+| **Use case**      | One-time async result   | Streams/events          |
+
+---
+
+### Interceptor in Angular
+| Feature           | Interceptor             | Use Case                |
+| ----------------- | ---------------------- | ----------------------- |
+| **Purpose**       | Modify HTTP requests/responses | Add auth token, logging, error handling |
+| **Multiple**      | Yes (chainable)         | Yes                     |
+| **Configuration** | Provided in providers array with HTTP_INTERCEPTORS | `multi: true` required |
+
+---
+
+### Entry Component vs Regular Component
+| Feature           | Entry Component         | Regular Component       |
+| ----------------- | ---------------------- | ----------------------- |
+| **Declaration**   | Not in template         | In template             |
+| **Usage**         | Loaded dynamically      | Used statically         |
+| **Angular Ivy**   | No longer needed        | Always needed           |
+
+---
+
+### ngOnChanges vs ngDoCheck
+| Feature           | ngOnChanges             | ngDoCheck               |
+| ----------------- | ---------------------- | ----------------------- |
+| **Trigger**       | Input property changes  | Every change detection  |
+| **Customization** | Limited                 | Custom logic possible   |
+
+---
+
+### View Encapsulation Types
+| Feature           | Emulated                | ShadowDom               | None                    |
+| ----------------- | ---------------------- | ----------------------- | ----------------------- |
+| **Scope**         | Component-level         | Native browser shadow DOM| Global                  |
+| **Style leakage** | No                      | No                      | Yes                     |
+
+---
+
+### Attribute Directive vs Structural Directive
+| Feature           | Attribute Directive     | Structural Directive    |
+| ----------------- | ---------------------- | ----------------------- |
+| **Effect**        | Changes appearance/behavior | Changes DOM structure |
+| **Examples**      | ngClass, ngStyle        | *ngIf, *ngFor           |
+
+---
+
+### Reactive Form vs Template-driven Form
+| Feature           | Reactive Form           | Template-driven Form    |
+| ----------------- | ---------------------- | ----------------------- |
+| **Approach**      | Code-driven             | Template-driven         |
+| **Validation**    | Explicit, scalable      | Simple, less scalable   |
+| **Use case**      | Complex, dynamic forms  | Simple forms            |
+
+---
+
+### forRoot vs forChild (Angular Routing)
+| Feature           | forRoot                 | forChild                |
+| ----------------- | ---------------------- | ----------------------- |
+| **Purpose**       | Main app routing        | Feature module routing  |
+| **Singleton**     | Yes                     | No                      |
+
+---
+
+### Guard Types in Angular
+| Guard Type        | Purpose                 |
+| ----------------- | ---------------------- |
+| CanActivate       | Controls route access   |
+| CanDeactivate     | Controls leaving route  |
+| CanLoad           | Controls module loading |
+| Resolve           | Pre-fetches data        |
+| CanActivateChild  | Controls child routes   |
+
+---
