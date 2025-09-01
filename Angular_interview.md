@@ -2,6 +2,66 @@
 
 This guide groups Angular interview questions into thematic sections for easier reference.
 
+## Index
+
+### Basic / Direct Questions
+- [What is the basic use of async pipe in Angular?](#what-is-the-basic-use-of-async-pipe-in-angular)
+- [What is View Encapsulation in Angular?](#what-is-view-encapsulation-in-angular)
+- [What is Content Projection in Angular?](#what-is-content-projection-in-angular)
+- [What are Reactive Forms and Template-Driven Forms?](#what-are-reactive-forms-and-template-driven-forms)
+- [How does Angular Application Bootstrap?](#how-does-angular-application-bootstrap)
+- [What is angular.json?](#what-is-angularjson)
+- [ng build vs ng serve](#ng-build-vs-ng-serve)
+- [Environment-specific Config](#environment-specific-config)
+- [dependencies vs devDependencies](#dependencies-vs-devdependencies)
+- [Different Types of Pipes](#different-types-of-pipes)
+- [How to format date using Pipe?](#how-to-format-date-using-pipe)
+- [Can we create Custom Pipe?](#can-we-create-custom-pipe)
+- [What is Router Outlet?](#what-is-router-outlet)
+- [Can we have Multiple Router Outlets?](#can-we-have-multiple-router-outlets)
+- [What is trackBy in Angular?](#what-is-trackby-in-angular)
+- [How do you reset a form?](#how-do-you-reset-a-form)
+- [Difference between setValue() and patchValue()](#difference-between-setvalue-and-patchvalue)
+- [Template-driven Form Example](#template-driven-form-example)
+- [How many ways can we bind data to DOM?](#how-many-ways-can-we-bind-data-to-dom)
+- [Types of Data Binding](#types-of-data-binding)
+- [Why do we need Routing in Angular?](#why-do-we-need-routing-in-angular)
+- [Difference between Attribute and Structural Directive](#difference-between-attribute-and-structural-directive)
+
+### Intermediate / Core Concepts
+- [Angular Lifecycle Hooks](#angular-lifecycle-hooks)
+- [What is Change Detection in Angular?](#what-is-change-detection-in-angular)
+- [Use of @ViewChild](#use-of-viewchild)
+- [What is Shared Module in Angular?](#what-is-shared-module-in-angular)
+- [Providers in Angular](#providers-in-angular)
+- [Constructor vs ngOnInit](#constructor-vs-ngoninit)
+- [How does Angular handle Dependency Injection?](#how-does-angular-handle-dependency-injection)
+- [What is Lazy Loading and how to achieve it?](#what-is-lazy-loading-and-how-to-achieve-it)
+- [What is APP_INITIALIZER?](#what-is-app_initializer)
+- [How to load components dynamically?](#how-to-load-components-dynamically)
+- [Use of Interceptor](#use-of-interceptor)
+- [How to call backend service in Angular?](#how-to-call-backend-service-in-angular)
+
+### RxJS / Async Handling
+- [Difference between Observable and Promise](#difference-between-observable-and-promise)
+- [Key Differences Between Observable and Promise (Table)](#key-differences-between-observable-and-promise-table)
+- [Which RxJS operators do you use commonly?](#which-rxjs-operators-do-you-use-commonly)
+- [forkJoin vs switchMap](#forkjoin-vs-switchmap)
+- [How do you perform Error Handling in Observables?](#how-do-you-perform-error-handling-in-observables)
+- [Subject & Types of Subject (Subject, BehaviorSubject, ReplaySubject, AsyncSubject)](#subject--types-of-subject-subject-behaviorsubject-replaysubject-asyncsubject)
+- [Subject vs BehaviorSubject](#subject-vs-behaviorsubject)
+
+### Advanced / Scenario-based Questions
+- [What are Authentication Guards in Angular?](#what-are-authentication-guards-in-angular)
+- [How do you change settings of zone.js?](#how-do-you-change-settings-of-zonejs)
+- [How to pass data between components?](#how-to-pass-data-between-components)
+- [Scenario: Secure a route using CanActivate guard](#scenario-secure-a-route-using-canactivate-guard)
+- [Scenario: Optimize *ngFor rendering using trackBy](#scenario-optimize-ngfor-rendering-using-trackby)
+- [Scenario: Reset a form after submitting](#scenario-reset-a-form-after-submitting)
+- [Scenario: Load config before app initializes with APP_INITIALIZER](#scenario-load-config-before-app-initializes-with-app_initializer)
+- [Scenario: Handle multiple API calls (forkJoin vs switchMap)](#scenario-handle-multiple-api-calls-forkjoin-vs-switchmap)
+- [Scenario: Pass data between unrelated components using a service with Subject](#scenario-pass-data-between-unrelated-components-using-a-service-with-subject)
+
 ---
 
 ## Basic / Direct Questions
