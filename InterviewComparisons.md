@@ -487,3 +487,87 @@ This guide aggregates comparison tables for Java, Spring, and JavaScript concept
 | CanActivateChild  | Controls child routes   |
 
 ---
+
+## Microservices vs Monolithic Applications
+
+### Differences
+| Aspect                | Monolithic Application                | Microservices Application                |
+|-----------------------|---------------------------------------|------------------------------------------|
+| Architecture          | Single, unified codebase              | Collection of small, independent services |
+| Deployment            | Deployed as one unit                  | Each service deployed independently      |
+| Scalability           | Scales as a whole                     | Scales individual services               |
+| Technology Stack      | Usually one stack                     | Can use different stacks per service     |
+| Data Management       | Single database                        | Each service can have its own database   |
+| Communication         | Internal method calls                  | API calls (HTTP, messaging)              |
+| Fault Isolation       | Harder to isolate failures             | Easier to isolate failures               |
+| Development Teams     | Usually one team                       | Multiple teams can work independently    |
+
+### Advantages & Disadvantages
+
+#### Monolithic Application
+**Advantages:**
+- Simple to develop, test, and deploy initially
+- Easier to debug and trace
+- Performance can be better due to local calls
+- Less operational overhead
+
+**Disadvantages:**
+- Hard to scale specific modules
+- Large codebase becomes difficult to manage
+- Any change requires redeployment of the whole application
+- Technology lock-in
+
+#### Microservices Application
+**Advantages:**
+- Independent deployment and scaling
+- Technology diversity possible
+- Fault isolation (failure in one service doesn't affect others)
+- Easier for large teams to work in parallel
+
+**Disadvantages:**
+- Complex to develop, test, and deploy
+- Requires DevOps and automation
+- Network latency due to remote calls
+- Data consistency challenges
+- Higher operational overhead
+
+---
+
+## Spring vs Spring Boot Application
+
+### Differences
+| Aspect                | Spring Framework                      | Spring Boot                              |
+|-----------------------|---------------------------------------|------------------------------------------|
+| Setup                 | Manual configuration (XML/Java)       | Auto-configuration, minimal setup        |
+| Dependency Management | Manual (add jars, manage versions)    | Uses Spring Boot Starter dependencies    |
+| Embedded Server       | Not provided                          | Comes with embedded servers (Tomcat, Jetty, etc.) |
+| Deployment            | WAR file (external server)            | JAR file (self-contained, easy deploy)   |
+| Configuration         | Verbose, explicit                     | Convention over configuration            |
+| Production Ready      | Needs extra setup                     | Built-in features (metrics, health, etc.)|
+| CLI                   | Not available                         | Spring Boot CLI for rapid prototyping    |
+| Profiles              | Supported (since 3.1)                 | Enhanced profile support                 |
+
+### Advantages & Disadvantages
+
+#### Spring Framework
+**Advantages:**
+- Fine-grained control over configuration
+- Suitable for legacy and complex enterprise apps
+- Mature ecosystem
+
+**Disadvantages:**
+- More boilerplate code
+- Slower development due to manual setup
+- Harder to configure and deploy
+
+#### Spring Boot
+**Advantages:**
+- Rapid development and deployment
+- Minimal configuration required
+- Embedded server support
+- Production-ready features out of the box
+
+**Disadvantages:**
+- Less control over some configurations
+- Larger executable size (due to embedded server)
+- May hide complexity from beginners
