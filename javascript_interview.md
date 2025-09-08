@@ -52,17 +52,82 @@ This guide contains **top JavaScript interview questions and answers** arranged 
 ## ✅ JavaScript Interview Questions & Answers
 
 ### Q1. What is Hoisting in JavaScript?
-**A:** Hoisting is JavaScript's behavior of moving declarations (not initializations) to the top of their scope before execution.
+**A:** Hoisting is a JavaScript mechanism where variable and function declarations are moved to the top of their containing scope (global or function scope) during the compilation phase, before the code is executed.
+
+Important: Only declarations are hoisted, not initializations
 
 ---
 
 ### Q2. Difference between Rest and Spread operators?
 **A:** Rest (`...`) collects multiple arguments into an array. Spread (`...`) expands elements of an array/object.
 
+Rest Operator (...) Used in:
+
+Function parameters
+Destructuring
+Example:
+```
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+console.log(sum(1, 2, 3, 4)); // Output: 10
+
+Here, ...numbers collects all arguments into an array.
+```
+
+
+Spread Used in:
+
+Array/Object cloning
+Merging
+Passing arguments
+
+```
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
+
+console.log(arr2); // Output: [1, 2, 3, 4, 5]
+
+Here, ...arr1 spreads the elements of arr1 into arr2.
+```
+
+| Feature       | Rest (`...`)                          | Spread (`...`)                             |
+|--------------|----------------------------------------|--------------------------------------------|
+| **Purpose**   | Collects multiple values into one      | Expands values from an iterable or object   |
+| **Used in**   | Function parameters, destructuring     | Arrays, objects, function calls             |
+| **Example**   | `function fn(...args)`                | `[...array]` or `{...object}`              |
+
+
 ---
 
 ### Q3. Difference between slice and splice?
 **A:** `slice` returns a shallow copy without modifying the array. `splice` modifies the array by adding/removing elements.
+
+| Feature         | `slice()`                                      | `splice()`                                      |
+|----------------|------------------------------------------------|-------------------------------------------------|
+| **Purpose**     | Extracts a portion of an array                 | Adds/removes/replaces elements in an array      |
+| **Return Value**| Returns a new array                            | Returns the removed elements                    |
+| **Original Array** | Unchanged (non-mutating)                   | Changed (mutating)                              |
+| **Use Case**    | When you want to copy or extract data         | When you want to update the array               |
+
+```
+slice() Example
+const fruits = ['apple', 'banana', 'cherry', 'date'];
+const sliced = fruits.slice(1, 3); // ['banana', 'cherry']
+console.log(fruits); // ['apple', 'banana', 'cherry', 'date'] — original unchanged
+
+
+splice() Example
+
+const fruits = ['apple', 'banana', 'cherry', 'date'];
+const removed = fruits.splice(1, 2, 'blueberry', 'kiwi');
+// removes 'banana' and 'cherry', inserts 'blueberry' and 'kiwi'
+console.log(fruits); // ['apple', 'blueberry', 'kiwi', 'date']
+console.log(removed); // ['banana', 'cherry']
+
+
+```
 
 ---
 
