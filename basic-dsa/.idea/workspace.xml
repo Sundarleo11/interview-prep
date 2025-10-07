@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c67e115-1c9e-47f5-8941-a03092aecdef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ProductArrayExceptSelf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/twosum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MedianTwoSortedArrays.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/SearchRotatedSorted.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/maxProfit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/maxSubArray.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +36,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.MedianTwoSortedArrays.executor": "Run",
     "Application.ProductArrayExceptSelf.executor": "Run",
+    "Application.SearchRotatedSorted.executor": "Run",
+    "Application.maxProfit.executor": "Run",
+    "Application.maxSubArray.executor": "Run",
     "Application.twosum.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -43,6 +49,44 @@
     "last_opened_file_path": "D:/workspace/interview-prep/basic-dsa"
   }
 }]]></component>
+  <component name="RunManager" selected="Application.maxProfit">
+    <configuration name="MedianTwoSortedArrays" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MedianTwoSortedArrays" />
+      <module name="basic-dsa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SearchRotatedSorted" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SearchRotatedSorted" />
+      <module name="basic-dsa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="maxProfit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="maxProfit" />
+      <module name="basic-dsa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="maxSubArray" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="maxSubArray" />
+      <module name="basic-dsa" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.maxProfit" />
+        <item itemvalue="Application.maxSubArray" />
+        <item itemvalue="Application.SearchRotatedSorted" />
+        <item itemvalue="Application.MedianTwoSortedArrays" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
