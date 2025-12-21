@@ -1,4 +1,144 @@
 
+# Apache Kafka Overview
+
+## What is Kafka?
+Apache Kafka is a distributed event streaming platform used to build real-time data pipelines and streaming applications. It is designed to handle high throughput, fault tolerance, and scalability.
+
+## Core Components
+### 1. **Producer**
+Sends messages to Kafka topics.
+
+### 2. **Topic**
+Logical channel where messages are stored.
+
+### 3. **Partition**
+Each topic is divided into partitions to allow parallelism.
+
+### 4. **Broker**
+A Kafka server that stores partitions.
+
+### 5. **Consumer**
+Reads messages from topics.
+
+### 6. **Consumer Group**
+Group of consumers for load balancing.
+
+### 7. **Replication**
+Partitions are replicated across brokers for fault tolerance.
+
+---
+
+## How Kafka Works (Flow Overview)
+
+### **1. Producer → Topic → Partitions**
+- Producer sends messages.
+- Kafka distributes them into partitions (based on key or round‑robin).
+
+### **2. Partition Distribution Across Brokers**
+Example:
+- Topic: `orders`
+- Partitions: `P0, P1, P2`
+- Brokers: `B1, B2, B3`
+
+```
+P0 → B1  
+P1 → B2  
+P2 → B3
+```
+
+### **3. Replication**
+If replication factor = 3:
+```
+P0 Leader → B1, Followers → B2, B3  
+P1 Leader → B2, Followers → B1, B3  
+P2 Leader → B3, Followers → B1, B2  
+```
+
+### **4. Consumer Groups**
+- Each partition is consumed by exactly *one* consumer in a group.
+
+Example:
+
+```
+CG1 (Consumer Group):
+  C1 → P0
+  C2 → P1
+  C3 → P2
+```
+
+### **5. Fault Tolerance**
+- If a broker fails, follower replicas become leaders.
+- If a consumer fails, partitions rebalance to others in the group.
+
+---
+
+## When to Use Kafka?
+
+| Use Case | Why Kafka? |
+|---------|------------|
+| Real-time streaming | High throughput + low latency |
+| Event-driven microservices | Decouples services |
+| Logs & metrics | Durable and replicated |
+| Big Data pipelines | Integrates well with Spark, Flink, etc. |
+
+---
+
+## Java Producer Example
+
+```java
+Properties props = new Properties();
+props.put("bootstrap.servers", "localhost:9092");
+props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+
+KafkaProducer<String, String> producer = new KafkaProducer<>(props);
+
+ProducerRecord<String, String> record =
+        new ProducerRecord<>("orders-topic", "order1", "Order Created");
+
+producer.send(record);
+producer.close();
+```
+
+---
+
+## Java Consumer Example
+
+```java
+Properties props = new Properties();
+props.put("bootstrap.servers", "localhost:9092");
+props.put("group.id", "order-service");
+props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+
+KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+consumer.subscribe(Arrays.asList("orders-topic"));
+
+while (true) {
+    ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+    for (ConsumerRecord<String, String> record : records) {
+        System.out.println("Consumed: " + record.value());
+    }
+}
+```
+
+---
+
+## Partition Assignment Logic
+- Kafka uses **Range**, **Round Robin**, or **Sticky** assignment.
+- Ensures each partition is handled by one consumer in the group.
+
+---
+
+## Fault Tolerance Summary
+- Brokers replicate partitions.
+- If a leader fails → follower becomes leader.
+- Consumers rebalance when one dies.
+
+---
+
+
+
 # Apache Kafka Deep Dive (With Visual Diagrams)
 
 This document provides detailed Kafka concepts **with visual ASCII diagrams** so you can easily understand brokers, partitions, replication, consumer groups, and failover.
@@ -264,13 +404,15 @@ Partitions → Parallelism
 Replication → Fault Tolerance
 Consumer Groups → Load Balancing
 Brokers → Cluster Storage
-```
 
----
+Kafka provides:
+- High throughput
+- Scalability (via partitions)
+- Fault tolerance (via replication)
+- Load balancing (via consumer groups)
 
-This document now includes:
-✔ Deep explanation  
-✔ Visual diagrams  
-✔ Java snippets  
-✔ Partition, replication, and failover flows  
+Perfect for microservices, streaming, and big data.
+
+````
+
 
