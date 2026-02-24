@@ -252,47 +252,175 @@
 ## 6. Join Strings with Prefix, Suffix and Delimiter
 
 ``` java
-listOfStrings.stream()
-    .collect(Collectors.joining(",", "Prefix", "Suffix"));
+        List<String> str = Arrays.asList("abc", "cde", "edfr");
+
+
+        // =====================================================
+        // Add brackets to each element individually
+        // =====================================================
+        String joinStringsWithBrackets = str.stream()
+                .map(s -> "[" + s + "]")
+                .collect(Collectors.joining(","));
+
+        System.out.println("JoinStringsWithBrackets: " + joinStringsWithBrackets);
+        // Output: [abc],[cde],[edfr]
+
+
+        
+        // =====================================================
+        //  Add prefix and suffix to entire joined string
+        // =====================================================
+        String joinWithBrackets = str.stream()
+                .collect(Collectors.joining(",", "[", "]"));
+
+        System.out.println("JoinWithBrackets: " + joinWithBrackets);
+        // Output: [abc,cde,edfr]
 ```
 
 ## 7. Print Multiples of 5
 
 ``` java
-listOfIntegers.stream()
-    .filter(i -> i % 5 == 0)
-    .forEach(System.out::println);
+        List<Integer> listOfIntegers = Arrays.asList(5, 12, 15, 20, 33, 40, 7, 55);
+
+        //Filter multiples of 5
+        System.out.println("Multiples of 5:");
+
+        listOfIntegers.stream()
+                .filter(i -> i % 5 == 0)
+                .forEach(System.out::println);
 ```
 
 ## 8. Find Maximum and Minimum
 
 ``` java
-listOfIntegers.stream().max(Comparator.naturalOrder()).get();
-listOfIntegers.stream().min(Comparator.naturalOrder()).get();
+        List<Integer> listOfIntegers = Arrays.asList(10, 20, 5, 40, 25);
+
+        // Maximum
+        Integer max = listOfIntegers.stream()
+                .max(Comparator.naturalOrder())
+                .get();
+
+        // Minimum
+        Integer min = listOfIntegers.stream()
+                .min(Comparator.naturalOrder())
+                .get();
+
+        // Sum
+        int sum = listOfIntegers.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        // Average
+        double average = listOfIntegers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .getAsDouble();
+
+        System.out.println("Maximum: " + max);
+        System.out.println("Minimum: " + min);
+        System.out.println("Sum: " + sum);
+        System.out.println("Average: " + average);
+
+        // =====================================================
+        //  IntSummaryStatistics
+        // =====================================================
+        IntSummaryStatistics res = listOfIntegers.stream().mapToInt(Integer::intValue).summaryStatistics();
+        System.out.println("max :" + res.getMax());
+        System.out.println("min :" + res.getMin());
+        System.out.println("sum :" + res.getSum());
+        System.out.println("average :" + res.getAverage());
+        System.out.println("count :" + res.getCount());
 ```
 
 ## 9. Merge Two Unsorted Arrays into Sorted Array
 
 ``` java
-IntStream.concat(Arrays.stream(a), Arrays.stream(b))
-    .sorted()
-    .toArray();
+ // ==============================
+        // Primitive int arrays
+        // ==============================
+        // ✔ Use int[] when performance matters
+        // ✔ Faster than Integer because no object overhead
+        int[] a = {5, 2, 9, 1};
+        int[] b = {8, 3, 7, 4};
+
+        // ==============================
+        // Merge & Sort using IntStream
+        // ==============================
+        // ✔ IntStream is best for primitive int
+        int[] result = IntStream
+                .concat(Arrays.stream(a), Arrays.stream(b))
+                .sorted()
+                .toArray();
+
+        System.out.println("Merged and Sorted int[]:");
+        System.out.println(Arrays.toString(result));
+
+
+        // ==============================
+        //  Convert int[] → List<Integer>
+        // ==============================
+        // ✔ Collections cannot store primitives
+        // ✔ Generics require objects (Integer)
+        List<Integer> list = Arrays.stream(result)
+                .boxed()   // int → Integer (Boxing)
+                .collect(Collectors.toList());
+
+        System.out.println("\nConverted to List<Integer>:");
+        System.out.println(list);
+
+
+        // ==============================
+        //  Handling Integer in List
+        // ==============================
+
+        //  Always use mapToInt() for math operations
+        int sum = list.stream()
+                .mapToInt(Integer::intValue)  // Unboxing
+                .sum();
+
+        System.out.println("\nSum: " + sum);
+
+        //  Safe max handling (avoid .get())
+        int max = list.stream()
+                .max(Integer::compareTo)
+                .orElse(0);
+
+        System.out.println("Max: " + max);
+
+
+        // ==============================
+        // 5️ Convert List<Integer> → int[]
+        // ==============================
+        // ✔ Needed when performance operations required
+        int[] backToArray = list.stream()
+                .mapToInt(Integer::intValue) // Unboxing
+                .toArray();
+
+        System.out.println("\nConverted back to int[]:");
+        System.out.println(Arrays.toString(backToArray));
 ```
 
 ## 10. Anagram Program
 
 ``` java
-String s1Sorted = Stream.of(s1.split(""))
-    .map(String::toUpperCase)
-    .sorted()
-    .collect(Collectors.joining());
+        String s1 = "listen";
+        String s2 = "silent";
 
-String s2Sorted = Stream.of(s2.split(""))
-    .map(String::toUpperCase)
-    .sorted()
-    .collect(Collectors.joining());
+        String s1Sorted = Stream.of(s1.split(""))
+                .map(String::toUpperCase)
+                .sorted()
+                .collect(Collectors.joining());
 
-// Compare s1Sorted.equals(s2Sorted)
+        String s2Sorted = Stream.of(s2.split(""))
+                .map(String::toUpperCase)
+                .sorted()
+                .collect(Collectors.joining());
+
+        if (s1Sorted.equals(s2Sorted)) {
+            System.out.println("Strings are Anagrams");
+        } else {
+            System.out.println("Strings are NOT Anagrams");
+        }
 ```
 
 ## 11. Merge Arrays Without Duplicates
