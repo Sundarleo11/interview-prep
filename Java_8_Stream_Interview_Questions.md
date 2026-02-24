@@ -43,8 +43,48 @@
 ## 1. Separate Odd and Even Numbers
 
 ``` java
-listOfIntegers.stream()
-    .collect(Collectors.partitioningBy(i -> i % 2 == 0));
+        List<Integer> listOfIntegers = Arrays.asList(10, 15, 20, 25, 30, 35, 40);
+
+        System.out.println("Original List:");
+        System.out.println(listOfIntegers);
+
+        // =====================================================
+        // Method 1 : Using filter() Method
+        // =====================================================
+
+        // Even numbers
+        List<Integer> evenNumbers = listOfIntegers.stream()
+                .filter(i -> i % 2 == 0)
+                .collect(Collectors.toList());
+
+        // Odd numbers
+        List<Integer> oddNumbers = listOfIntegers.stream()
+                .filter(i -> i % 2 != 0)
+                .collect(Collectors.toList());
+
+        System.out.println("\nUsing filter():");
+        System.out.println("Even Numbers: " + evenNumbers);
+        System.out.println("Odd Numbers: " + oddNumbers);
+       
+         o/p -->Even Numbers: [10, 20, 30, 40]
+         o/p-->Odd Numbers: [15, 25, 35]
+
+        // =====================================================
+        // Method 2: Using partitioningBy() Method
+        // =====================================================
+
+        Map<Boolean, List<Integer>> partitionedMap =
+                listOfIntegers.stream()
+                        .collect(Collectors.partitioningBy(i -> i % 2 == 0));
+
+        System.out.println("\nUsing partitioningBy():");
+        System.out.println("Even Numbers: " + partitionedMap.get(true));
+        System.out.println("Odd Numbers: " + partitionedMap.get(false));
+
+       0/p
+        Even Numbers: [10, 20, 30, 40]
+        Odd Numbers: [15, 25, 35]
+
 ```
 
 ## 2. Remove Duplicate Elements
