@@ -45,9 +45,6 @@
 ``` java
         List<Integer> listOfIntegers = Arrays.asList(10, 15, 20, 25, 30, 35, 40);
 
-        System.out.println("Original List:");
-        System.out.println(listOfIntegers);
-
         // =====================================================
         // Method 1 : Using filter() Method
         // =====================================================
@@ -66,6 +63,7 @@
         System.out.println("Even Numbers: " + evenNumbers);
         System.out.println("Odd Numbers: " + oddNumbers);
        
+       //  Output
          o/p -->Even Numbers: [10, 20, 30, 40]
          o/p-->Odd Numbers: [15, 25, 35]
 
@@ -77,11 +75,12 @@
                 listOfIntegers.stream()
                         .collect(Collectors.partitioningBy(i -> i % 2 == 0));
 
+
         System.out.println("\nUsing partitioningBy():");
         System.out.println("Even Numbers: " + partitionedMap.get(true));
         System.out.println("Odd Numbers: " + partitionedMap.get(false));
 
-       0/p
+       //  Output
         Even Numbers: [10, 20, 30, 40]
         Odd Numbers: [15, 25, 35]
 
@@ -90,34 +89,164 @@
 ## 2. Remove Duplicate Elements
 
 ``` java
-listOfStrings.stream()
-    .distinct()
-    .collect(Collectors.toList());
+
+        List<Integer> listOfIntegers = Arrays.asList(
+                10, 20, 10, 30, 40, 20, 50, 30
+        ); 
+
+
+        // =====================================================
+        // Method 1: Traditional Way Using Set
+        // =====================================================
+
+        Set<Integer> uniqueSet = new LinkedHashSet<>(listOfIntegers);
+        List<Integer> uniqueListTraditional = new ArrayList<>(uniqueSet);
+
+        System.out.println("\nUsing Set (Traditional):");
+        System.out.println(uniqueListTraditional);
+
+        // =====================================================
+        // Method 2: Using Stream distinct()
+        // =====================================================
+
+        List<Integer> uniqueListStream = listOfIntegers.stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        //  Output
+        System.out.println("\nUsing Stream distinct():");
+        System.out.println(uniqueListStream);
 ```
 
 ## 3. Frequency of Each Character in String
 
 ``` java
-inputString.chars()
-    .mapToObj(c -> (char) c)
-    .collect(Collectors.groupingBy(Function.identity(),
-            Collectors.counting()));
+    String inputString = "Java Stream API";
+
+     
+        // =====================================================
+        // Method 1: Traditional Way Using java 7
+        // =====================================================
+     Map<Character, Integer> frequencyMap = new HashMap<Character, Integer>();
+
+        for (int i = 0; i < input.length(); i++) {
+
+            char ch = input.charAt(i);
+
+            if (ch != ' ') {   // ignoring spaces
+
+                if (frequencyMap.containsKey(ch)) {
+                    frequencyMap.put(ch, frequencyMap.get(ch) + 1);
+                } else {
+                    frequencyMap.put(ch, 1);
+                }
+            }
+        }
+
+       //  Output
+        System.out.println("Character Frequency:");
+        System.out.println(frequencyMap);
+
+
+        // =====================================================
+        // Method 2: Traditional Way Using java 8
+        // =====================================================
+
+        Map<Character, Long> frequencyMap = inputString
+                .chars()                      // IntStream. ASCII value Int
+                .mapToObj(c -> (char) c)      // Convert int to Character
+                .filter(c -> c != ' ')        // Optional: Remove spaces
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()
+                ));
+
+       //  Output
+        System.out.println("\nCharacter Frequency:");
+        frequencyMap.forEach((key, value) ->
+                System.out.println(key + " -> " + value)
+
 ```
 
 ## 4. Frequency of Each Element in Array/List
 
 ``` java
-anyList.stream()
-    .collect(Collectors.groupingBy(Function.identity(),
-            Collectors.counting()));
+        List<Integer> list = Arrays.asList(10, 20, 10, 30, 20, 40, 10);
+
+        //  Use Stream + groupingBy
+        Map<Integer, Long> frequencyMap = list.stream()
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        Collectors.counting()
+                ));
+
+        //  Output
+        System.out.println("Element Frequency:");
+        frequencyMap.forEach((key, value) ->
+                System.out.println(key + " -> " + value));
+
+
+           //  Output
+           Element Frequency:
+           10 -> 3
+           20 -> 2
+           30 -> 1
+           40 -> 1
 ```
 
 ## 5. Sort List in Reverse Order
 
 ``` java
-anyList.stream()
-    .sorted(Comparator.reverseOrder())
-    .forEach(System.out::println);
+
+        // =====================================================
+        // Integer
+        // =====================================================
+        List<Integer> list = Arrays.asList(5, 1, 9, 3, 7, 2);
+
+        //Sort in Reverse Order
+        List<Integer> sortedList = list.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+
+        //Output
+        System.out.println("Sorted in Reverse Order:");
+        sortedList.forEach(System.out::println);
+
+
+        // =====================================================
+        // String
+        // =====================================================
+         List<String> list = Arrays.asList("Apple", "Orange", "Banana", "Mango");
+
+        // Sort in Reverse Order
+        List<String> sortedList = list.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+
+        // Output
+        System.out.println("Reverse Sorted List:");
+        sortedList.forEach(System.out::println);
+
+        Reverse Sorted List:
+        Orange
+        Mango
+        Banana
+        Apple
+
+        // Sort by length (descending)
+        List<String> sortedList = list.stream()
+                .sorted(Comparator.comparing(String::length).reversed())
+                .collect(Collectors.toList());
+
+        // Output
+        System.out.println("Reverse Sorted Based On Length:");
+        sortedList.forEach(System.out::println);
+        
+        Reverse Sorted Based On Length:
+        Orange
+        Banana
+        Apple
+        Mango
 ```
 
 ## 6. Join Strings with Prefix, Suffix and Delimiter
