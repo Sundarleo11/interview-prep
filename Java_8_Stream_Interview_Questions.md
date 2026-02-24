@@ -335,69 +335,32 @@
 ## 9. Merge Two Unsorted Arrays into Sorted Array
 
 ``` java
- // ==============================
-        // Primitive int arrays
-        // ==============================
-        // ✔ Use int[] when performance matters
-        // ✔ Faster than Integer because no object overhead
-        int[] a = {5, 2, 9, 1};
-        int[] b = {8, 3, 7, 4};
+ // Primitive arrays (better performance)
+int[] a = {5, 2, 9, 1};
+int[] b = {8, 3, 7, 4};
+int[] c = {6, 1, 4};
 
-        // ==============================
-        // Merge & Sort using IntStream
-        // ==============================
-        // ✔ IntStream is best for primitive int
-        int[] result = IntStream
-                .concat(Arrays.stream(a), Arrays.stream(b))
-                .sorted()
-                .toArray();
+// two merge Merge and sort
+int[] result = IntStream
+        .concat(Arrays.stream(a), Arrays.stream(b))
+        .sorted()
+        .toArray();
 
-        System.out.println("Merged and Sorted int[]:");
-        System.out.println(Arrays.toString(result));
+System.out.println(Arrays.toString(result));
 
 
-        // ==============================
-        //  Convert int[] → List<Integer>
-        // ==============================
-        // ✔ Collections cannot store primitives
-        // ✔ Generics require objects (Integer)
-        List<Integer> list = Arrays.stream(result)
-                .boxed()   // int → Integer (Boxing)
-                .collect(Collectors.toList());
-
-        System.out.println("\nConverted to List<Integer>:");
-        System.out.println(list);
+// Primitive three arrays (better performance)
 
 
-        // ==============================
-        //  Handling Integer in List
-        // ==============================
+int[] result = IntStream
+        .concat(
+            IntStream.concat(Arrays.stream(a), Arrays.stream(b)),
+            Arrays.stream(c)
+        )
+        .sorted()
+        .toArray();
 
-        //  Always use mapToInt() for math operations
-        int sum = list.stream()
-                .mapToInt(Integer::intValue)  // Unboxing
-                .sum();
-
-        System.out.println("\nSum: " + sum);
-
-        //  Safe max handling (avoid .get())
-        int max = list.stream()
-                .max(Integer::compareTo)
-                .orElse(0);
-
-        System.out.println("Max: " + max);
-
-
-        // ==============================
-        // 5️ Convert List<Integer> → int[]
-        // ==============================
-        // ✔ Needed when performance operations required
-        int[] backToArray = list.stream()
-                .mapToInt(Integer::intValue) // Unboxing
-                .toArray();
-
-        System.out.println("\nConverted back to int[]:");
-        System.out.println(Arrays.toString(backToArray));
+System.out.println(Arrays.toString(result));
 ```
 
 ## 10. Anagram Program
@@ -426,10 +389,16 @@
 ## 11. Merge Arrays Without Duplicates
 
 ``` java
-IntStream.concat(Arrays.stream(a), Arrays.stream(b))
-    .sorted()
-    .distinct()
-    .toArray();
+        int[] a = {5, 2, 9, 1, 2};
+        int[] b = {8, 3, 7, 4, 5};
+
+        int[] result = IntStream
+                .concat(Arrays.stream(a), Arrays.stream(b))
+                .distinct()
+                .sorted()
+                .toArray();
+
+        System.out.println(Arrays.toString(result));
 ```
 
 ## 12. Sum of Digits of a Number
