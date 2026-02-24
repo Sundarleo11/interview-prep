@@ -1,13 +1,53 @@
-# Java 8 Interview Sample Coding Questions
+# 🚀 Java 8 Stream API -- Interview Coding Questions
 
-## 1. Separate Odd And Even Numbers
+## 📌 Table of Contents
+
+1.  [Separate Odd and Even Numbers](#1-separate-odd-and-even-numbers)
+2.  [Remove Duplicate Elements](#2-remove-duplicate-elements)
+3.  [Frequency of Each Character in
+    String](#3-frequency-of-each-character-in-string)
+4.  [Frequency of Each Element in
+    Array/List](#4-frequency-of-each-element-in-arraylist)
+5.  [Sort List in Reverse Order](#5-sort-list-in-reverse-order)
+6.  [Join Strings with Prefix, Suffix and
+    Delimiter](#6-join-strings-with-prefix-suffix-and-delimiter)
+7.  [Print Multiples of 5](#7-print-multiples-of-5)
+8.  [Find Maximum and Minimum](#8-find-maximum-and-minimum)
+9.  [Merge Two Unsorted Arrays into Sorted
+    Array](#9-merge-two-unsorted-arrays-into-sorted-array)
+10. [Anagram Program](#10-anagram-program)
+11. [Merge Arrays Without
+    Duplicates](#11-merge-arrays-without-duplicates)
+12. [Sum of Digits of a Number](#12-sum-of-digits-of-a-number)
+13. [Top 3 Maximum and Minimum
+    Numbers](#13-top-3-maximum-and-minimum-numbers)
+14. [Second Largest Number](#14-second-largest-number)
+15. [Sort Strings by Length](#15-sort-strings-by-length)
+16. [Common Elements Between Two
+    Arrays](#16-common-elements-between-two-arrays)
+17. [Sum and Average of Array](#17-sum-and-average-of-array)
+18. [Reverse Each Word of String](#18-reverse-each-word-of-string)
+19. [Reverse Integer Array](#19-reverse-integer-array)
+20. [Sum of First 10 Natural
+    Numbers](#20-sum-of-first-10-natural-numbers)
+21. [Palindrome Program](#21-palindrome-program)
+22. [Find Strings Starting with
+    Number](#22-find-strings-starting-with-number)
+23. [Last Element of Array/List](#23-last-element-of-arraylist)
+24. [Find Duplicate Elements](#24-find-duplicate-elements)
+25. [Calculate Age in Years](#25-calculate-age-in-years)
+26. [Fibonacci Series](#26-fibonacci-series)
+
+------------------------------------------------------------------------
+
+## 1. Separate Odd and Even Numbers
 
 ``` java
 listOfIntegers.stream()
     .collect(Collectors.partitioningBy(i -> i % 2 == 0));
 ```
 
-## 2. Remove Duplicate Elements From List
+## 2. Remove Duplicate Elements
 
 ``` java
 listOfStrings.stream()
@@ -15,7 +55,7 @@ listOfStrings.stream()
     .collect(Collectors.toList());
 ```
 
-## 3. Frequency Of Each Character In String
+## 3. Frequency of Each Character in String
 
 ``` java
 inputString.chars()
@@ -24,7 +64,7 @@ inputString.chars()
             Collectors.counting()));
 ```
 
-## 4. Frequency Of Each Element In An Array
+## 4. Frequency of Each Element in Array/List
 
 ``` java
 anyList.stream()
@@ -32,7 +72,7 @@ anyList.stream()
             Collectors.counting()));
 ```
 
-## 5. Sort The List In Reverse Order
+## 5. Sort List in Reverse Order
 
 ``` java
 anyList.stream()
@@ -40,14 +80,14 @@ anyList.stream()
     .forEach(System.out::println);
 ```
 
-## 6. Join List Of Strings With Prefix, Suffix And Delimiter
+## 6. Join Strings with Prefix, Suffix and Delimiter
 
 ``` java
 listOfStrings.stream()
-    .collect(Collectors.joining("Delimiter", "Prefix", "Suffix"));
+    .collect(Collectors.joining(",", "Prefix", "Suffix"));
 ```
 
-## 7. Print Multiples Of 5 From The List
+## 7. Print Multiples of 5
 
 ``` java
 listOfIntegers.stream()
@@ -55,14 +95,14 @@ listOfIntegers.stream()
     .forEach(System.out::println);
 ```
 
-## 8. Maximum & Minimum In A List
+## 8. Find Maximum and Minimum
 
 ``` java
 listOfIntegers.stream().max(Comparator.naturalOrder()).get();
 listOfIntegers.stream().min(Comparator.naturalOrder()).get();
 ```
 
-## 9. Merge Two Unsorted Arrays Into Single Sorted Array
+## 9. Merge Two Unsorted Arrays into Sorted Array
 
 ``` java
 IntStream.concat(Arrays.stream(a), Arrays.stream(b))
@@ -70,22 +110,23 @@ IntStream.concat(Arrays.stream(a), Arrays.stream(b))
     .toArray();
 ```
 
-## 10. Anagram Program In Java 8
+## 10. Anagram Program
 
 ``` java
-String s1 = Stream.of(s1.split(""))
+String s1Sorted = Stream.of(s1.split(""))
     .map(String::toUpperCase)
     .sorted()
     .collect(Collectors.joining());
 
-String s2 = Stream.of(s2.split(""))
+String s2Sorted = Stream.of(s2.split(""))
     .map(String::toUpperCase)
     .sorted()
     .collect(Collectors.joining());
-// If s1 and s2 are equal, then they are anagrams.
+
+// Compare s1Sorted.equals(s2Sorted)
 ```
 
-## 11. Merge Two Unsorted Arrays Without Duplicates
+## 11. Merge Arrays Without Duplicates
 
 ``` java
 IntStream.concat(Arrays.stream(a), Arrays.stream(b))
@@ -94,14 +135,14 @@ IntStream.concat(Arrays.stream(a), Arrays.stream(b))
     .toArray();
 ```
 
-## 12. Sum Of All Digits Of A Number
+## 12. Sum of Digits of a Number
 
 ``` java
 Stream.of(String.valueOf(inputNumber).split(""))
     .collect(Collectors.summingInt(Integer::parseInt));
 ```
 
-## 13. Three Max & Min Numbers From The List
+## 13. Top 3 Maximum and Minimum Numbers
 
 ``` java
 // Min 3
@@ -114,7 +155,7 @@ listOfIntegers.stream()
     .forEach(System.out::println);
 ```
 
-## 14. Second Largest Number In An Integer Array
+## 14. Second Largest Number
 
 ``` java
 listOfIntegers.stream()
@@ -124,7 +165,7 @@ listOfIntegers.stream()
     .get();
 ```
 
-## 15. Sort List Of Strings By Length
+## 15. Sort Strings by Length
 
 ``` java
 listOfStrings.stream()
@@ -140,14 +181,14 @@ list1.stream()
     .forEach(System.out::println);
 ```
 
-## 17. Sum & Average Of All Elements Of An Array
+## 17. Sum and Average of Array
 
 ``` java
 Arrays.stream(inputArray).sum();
 Arrays.stream(inputArray).average().getAsDouble();
 ```
 
-## 18. Reverse Each Word Of A String
+## 18. Reverse Each Word of String
 
 ``` java
 Arrays.stream(str.split(" "))
@@ -155,7 +196,7 @@ Arrays.stream(str.split(" "))
     .collect(Collectors.joining(" "));
 ```
 
-## 19. Reverse An Integer Array
+## 19. Reverse Integer Array
 
 ``` java
 IntStream.rangeClosed(1, array.length)
@@ -163,20 +204,20 @@ IntStream.rangeClosed(1, array.length)
     .toArray();
 ```
 
-## 20. Sum Of First 10 Natural Numbers
+## 20. Sum of First 10 Natural Numbers
 
 ``` java
 IntStream.range(1, 11).sum();
 ```
 
-## 21. Palindrome Program In Java 8
+## 21. Palindrome Program
 
 ``` java
 IntStream.range(0, str.length() / 2)
     .noneMatch(i -> str.charAt(i) != str.charAt(str.length() - i - 1));
 ```
 
-## 22. Find Strings Which Start With Number
+## 22. Find Strings Starting with Number
 
 ``` java
 listOfStrings.stream()
@@ -184,7 +225,7 @@ listOfStrings.stream()
     .forEach(System.out::println);
 ```
 
-## 23. Last Element Of An Array
+## 23. Last Element of Array/List
 
 ``` java
 listOfStrings.stream()
@@ -193,7 +234,7 @@ listOfStrings.stream()
     .get();
 ```
 
-## 24. Find Duplicate Elements From An Array
+## 24. Find Duplicate Elements
 
 ``` java
 Set<Integer> set = new HashSet<>();
@@ -203,7 +244,7 @@ listOfIntegers.stream()
     .collect(Collectors.toSet());
 ```
 
-## 25. Age Of Person In Years
+## 25. Calculate Age in Years
 
 ``` java
 LocalDate birthDay = LocalDate.of(1985, 1, 23);
